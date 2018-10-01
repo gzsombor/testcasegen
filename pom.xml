@@ -3,7 +3,7 @@
 
   <groupId>io.github.gzsombor</groupId>
   <artifactId>testcasegen</artifactId>
-  <version>0.0.2-SNAPSHOT</version>
+  <version>0.0.2</version>
   <packaging>jar</packaging>
 
   <name>testcasegen</name>
@@ -27,7 +27,7 @@
     <url>https://github.com/gzsombor/testcasegen/</url>
     <connection>scm:git:ssh://github.com/gzsombor/testcasegen</connection>
     <developerConnection>scm:git:https://github.com/gzsombor/testcasegen</developerConnection>
-    <tag>HEAD</tag>
+    <tag>testcasegen-0.0.2</tag>
   </scm>
   <build>
     <plugins>
