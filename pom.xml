@@ -1,14 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.gzsombor</groupId>
   <artifactId>testcasegen</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>testcasegen</name>
-  <url>http://maven.apache.org</url>
+  <url>http://github.com/gzsombor/testcasegen</url>
 
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -24,4 +23,22 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <scm>
+    <url>https://github.com/gzsombor/testcasegen/</url>
+    <connection>scm:git:ssh://github.com/gzsombor/testcasegen</connection>
+    <developerConnection>scm:git:https://github.com/gzsombor/testcasegen</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+          <configuration>
+            <goals>install</goals>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
