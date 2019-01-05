@@ -56,15 +56,28 @@ public class IntrospectionPlan implements Introspector {
         }
         for (Method method : type.getMethods()) {
             if (method.getParameterTypes().length == 0 && !Void.TYPE.equals(method.getReturnType())) {
-                Class<?> setterType = setters.get(method.getName().substring(3));
-                if (setterType != null && setterType.equals(method.getReturnType())) {
-                    collectAttributeValue(result, obj, method);
-                } else if (Collection.class.isAssignableFrom(method.getReturnType())) {
-                    collectAttributeValue(result, obj, method);
+                String propertyName = getPropertyName(method);
+                if (propertyName != null) {
+                    Class<?> setterType = setters.get(propertyName);
+                    if (setterType != null && setterType.equals(method.getReturnType())) {
+                        collectAttributeValue(result, obj, method);
+                    } else if (Collection.class.isAssignableFrom(method.getReturnType())) {
+                        collectAttributeValue(result, obj, method);
+                    }
                 }
             }
         }
         return result;
+    }
+    
+    private String getPropertyName(Method method) {
+        String name = method.getName();
+        if (name.startsWith("get")) {
+            return name.substring(3);
+        } else if (name.startsWith("is")) {
+            return name.substring(2);
+        }
+        return null;
     }
 
     private void collectAttributeValue(IntrospectionResult result, Object obj, Method method) {
