@@ -27,7 +27,7 @@ public class InstantSourceCode extends SourceCodeGenerator {
 
     @Override
     public String getObjectAccess() {
-        return "new java.time.Instant(" + instant.getEpochSecond()+ ", " + instant.getNano() + ")";
+        return "java.time.Instant.ofEpochSecond(" + instant.getEpochSecond()+ ", " + instant.getNano() + ")";
     }
 
 }

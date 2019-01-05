@@ -42,7 +42,7 @@ public class NumberSourceCode extends SourceCodeGenerator {
                 }
                 return "BigDecimal.valueOf(" + value + ")";
             } catch (ArithmeticException ae) {
-                return "BigDecimal.valueOf(\"" + ((BigDecimal)number).toString() + "\")";
+                return "new BigDecimal(\"" + ((BigDecimal)number).toString() + "\")";
             }
         } else if (number instanceof Long) {
             return number.toString() + "l";
