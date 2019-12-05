@@ -37,14 +37,25 @@ public class TestcaseGeneratorConfig {
     }
 
     public void addSkipClass(Class<?> type) {
+        if(builtinIntrospector.containsKey(type)) {
+            throw new IllegalArgumentException("There is already an introspector registered for type " + type);
+        }
         this.skipClasses.add(type);
     }
 
     public void addSkipClasses(Class<?>... types) {
+        for (Class<?> type : types) {
+            if(builtinIntrospector.containsKey(type)) {
+                throw new IllegalArgumentException("There is already an introspector registered for type " + type);
+            }
+        }
         this.skipClasses.addAll(Arrays.asList(types));
     }
 
     public void addIntrospector(Class<?> type, Introspector intros) {
+        if (this.skipClasses.contains(type)) {
+            throw new IllegalArgumentException("Type " + type + " is already marked as to be skipped!");
+        }
         this.builtinIntrospector.put(type, intros);
     }
 

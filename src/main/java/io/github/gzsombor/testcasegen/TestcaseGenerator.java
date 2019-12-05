@@ -110,8 +110,7 @@ public class TestcaseGenerator {
             if (type.getPackage().getName().startsWith("java.")) {
                 return null;
             }
-            final String simpleName = type.getSimpleName();
-            if (simpleName.contains("_$$_") && simpleName.startsWith(type.getSuperclass().getSimpleName())) {
+            if (isHibernateProxy(type)) {
                 // handle hibernate proxies
                 return getPlan(type.getSuperclass());
             }
@@ -121,6 +120,19 @@ public class TestcaseGenerator {
             }
         }
         return plan;
+    }
+
+    private boolean isHibernateProxy(Class<?> type) {
+        final String simpleName = type.getSimpleName();
+        if (simpleName.contains("_$$_") && simpleName.startsWith(type.getSuperclass().getSimpleName())) {
+            return true;
+        }
+        for (Class<?> iface : type.getInterfaces()) {
+            if ("org.hibernate.proxy.HibernateProxy".equals(iface.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean check(Class<?> type) {
