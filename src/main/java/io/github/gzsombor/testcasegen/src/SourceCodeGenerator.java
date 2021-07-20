@@ -32,6 +32,10 @@ public abstract class SourceCodeGenerator {
         return null;
     }
 
+    public String getOrdering() {
+        return null;
+    }
+
     public List<Object> getReferredObjects() {
         return Collections.emptyList();
     }

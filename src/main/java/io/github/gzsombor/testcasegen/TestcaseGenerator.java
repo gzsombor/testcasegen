@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +79,10 @@ public class TestcaseGenerator {
     }
 
     public List<SourceCodeGenerator> getIntrospectionResults() {
-        return new ArrayList<>(introspectionStatus.values());
+        Comparator<String> stringComp = Comparator.nullsLast((obj1, obj2) -> 
+            obj1.compareTo(obj2)
+        );
+        return introspectionStatus.values().stream().sorted((s1, s2) -> stringComp.compare(s1.getOrdering(), s2.getOrdering())).collect(Collectors.toList());
     }
 
     /**

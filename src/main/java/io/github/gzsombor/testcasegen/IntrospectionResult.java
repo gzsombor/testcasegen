@@ -26,6 +26,7 @@ import io.github.gzsombor.testcasegen.src.SourceCodeGenerator;
 public class IntrospectionResult extends SourceCodeGenerator {
     private final Class<?> type;
     private final int counter;
+    private boolean useCounter = true;
 
     private Map<String, Object> attributes = new HashMap<>();
 
@@ -34,6 +35,10 @@ public class IntrospectionResult extends SourceCodeGenerator {
     public IntrospectionResult(Class<?> type, int counter) {
         this.type = type;
         this.counter = counter;
+    }
+    
+    public void setUseCounter(boolean useCounter) {
+        this.useCounter = useCounter;
     }
 
     public void setAttribute(String name, Object value) {
@@ -115,11 +120,20 @@ public class IntrospectionResult extends SourceCodeGenerator {
     }
 
     public String getCacheVariableName() {
-        return type.getSimpleName().toLowerCase() + counter;
+        return toVariableName(type.getSimpleName()) + (useCounter ? counter : "");
+    }
+
+    @Override
+    public String getOrdering() {
+        return type.getSimpleName() + counter;
+    }
+
+    private static String toVariableName(String className) {
+        return new StringBuilder().append(Character.toLowerCase(className.charAt(0))).append(className.substring(1)).toString();
     }
 
     public String getMethodName() {
-        return "get" + type.getSimpleName() + counter;
+        return "get" + type.getSimpleName() + (useCounter ? counter : "");
     }
 
     @Override
